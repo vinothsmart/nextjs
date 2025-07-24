@@ -44,6 +44,12 @@ export default function RootLayout({
           >
             Contact
           </Link>
+          <Link
+            href="/users"
+            className="text-blue-500 no-underline hover:underline ml-4"
+          >
+            Users
+          </Link>
         </div>
         {children}
       </body>
