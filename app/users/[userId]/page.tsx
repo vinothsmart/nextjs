@@ -5,7 +5,7 @@ const fetchUser = async (userId: string) => {
     `https://jsonplaceholder.typicode.com/users/${userId}`
   );
   if (!response.ok) {
-    throw new Error("User not found");
+    return null; // Return null if the user is not found
   }
   return response.json();
 };
@@ -19,9 +19,10 @@ const UserPage = async ({
   const user = await fetchUser(userId);
 
   if (!user) {
-    notFound();
+    console.error("User not found");
+    return notFound();
   }
-  
+
   return (
     <div>
       <h1 className="text-2xl font-bold">User Details</h1>
