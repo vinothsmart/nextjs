@@ -1,23 +1,29 @@
+"use client";
+
+import { useState } from "react";
+
 async function fetchFriends() {
-  const response = await fetch("http://localhost:3000/api/hello", {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/hello`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ action: "getFriends" }),
+    body: JSON.stringify({ action: "Vinoth API Local" }),
   });
   const data = await response.json();
   return { data };
 }
 
-export default async function FriendsPage() {
-  const { data } = await fetchFriends();
-  if (!data) return <div>Loading...</div>;
+export default function FriendsPage() {
+  const [message, setMessage] = useState("");
+  const handleClick = async () => {
+    const { data } = await fetchFriends();
+    setMessage(data.message);
+  };
+
   return (
     <div>
-      <h1>Friends List</h1>
-      <div>{data.message}</div>
-      <div>{data.data.timestamp}</div>
+      <h1 onClick={handleClick}>Hey friends {message}</h1>
     </div>
   );
 }
